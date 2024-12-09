@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['rol'] = 'Administrador';
         $_SESSION['email'] = $adminEmail;
         // Redirige al panel del administrador
-        header("Location: InicioPagina.html");
+        header("Location: ../InicioPagina.html");
         exit();
     }
 
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['email'] = $user['email'];
             $_SESSION['nombre'] = $user['nombre'] . " " . $user['apellido'];
             // Redirige al panel del usuario
-            header("Location: InicioPagina.html");
+            header("Location: ../InicioPagina.html");
             exit();
         } else {
             // Si no se encuentra o la contraseña no es correcta
