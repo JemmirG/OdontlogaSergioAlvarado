@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Cita</title>
+    <link rel="stylesheet" href="css/Gestionagendamiento.css">
+    <style>
+        .notification {
+            display: none;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000;
+            font-size: 14px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Odontología Sergio Alvarado</div>
+            <ul class="nav-links">
+                <li><a href="InicioPagina.html">Inicio</a></li>
+                <li><a href="GestionServicio.html">Servicios</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Citas</a>
+                    <div class="dropdown-content">
+                        <a href="GestionAgendamiento.html">Gestionar Agendamiento</a>
+                        <a href="view.html">Ver Citas</a>
+                    </div>
+                </li>
+                <li><a href="#">Nosotros</a></li>
+            </ul>
+            <button id="botoncontacto">Contáctanos</button>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Agendar cita</h1>
+        <form id="appointmentForm">
+            <label for="documentNumber">Número documento</label>
+            <input type="text" id="documentNumber" required>
+            
+            <label for="service">Servicio</label>
+            <select id="service">
+                <!-- Services will be dynamically loaded here -->
+            </select>
+
+            <label for="cost">Costo cita</label>
+            <input type="text" id="cost" readonly class="cost-field">
+
+            <label>Disponibilidad</label>
+            <div class="calendar-container">
+                <input type="date" id="appointmentDate" class="datepicker" required>
+                <div class="time-slots">
+                    <!-- Horarios dinámicos se generarán aquí -->
+                </div>
+            </div>
+
+            <button class="boton2" type="submit">Agendar</button>
+        </form>
+    </div>
+
+    <!-- Botón flotante -->
+    <button class="floating-button" id="floatingButton">+</button>
+    
+    <!-- Formulario flotante opcional -->
+    <div class="floating-form" id="floatingForm">
+        <h2>Agregar Servicio y Horario</h2>
+        <form id="serviceForm">
+            <label for="newService">Nuevo Servicio (opcional)</label>
+            <input type="text" id="newService">
+
+            <label for="newCost">Costo del Servicio (opcional)</label>
+            <input type="text" id="newCost">
+
+            <label for="availableDate">Fecha disponible (opcional)</label>
+            <input type="date" id="availableDate">
+
+            <label for="availableTime">Horarios disponibles (separados por coma, opcional)</label>
+            <input type="text" id="availableTime" placeholder="Ej: 9:00 AM, 10:00 AM">
+
+            <button class="boton2" type="submit">Agregar Servicio y Horario</button>
+        </form>
+    </div>
+
+    <!-- Notification Element -->
+    <div class="notification" id="notification"></div>
+
+    <script>
+        let services = {
+            "Blanqueamiento dental": "200.000",
+            "Ortodoncia": "500.000",
+            "Implantes dentales": "800.000"
+        };
+
+        const bookedSlots = JSON.parse(localStorage.getItem('bookedSlots')) || {};
+
+        const timeSlotsContainer = document.querySelector('.time-slots');
+        const appointmentDateInput = document.getElementById('appointmentDate');
+        const serviceSelect = document.getElementById('service');
+        const costInput = document.getElementById('cost');
+        const notification = document.getElementById('notification');
+
+        function loadServices() {
+            serviceSelect.innerHTML = '';
+            for (let service in services) {
+                const option = document.createElement('option');
+                option.value = service;
+                option.textContent = service;
+                serviceSelect.appendChild(option);
+            }
+            updateCost();
+        }
+
+        serviceSelect.addEventListener('change', updateCost);
+
+        function updateCost() {
+            const selectedService = serviceSelect.value;
+            costInput.value = services[selectedService] || "";
+        }
+
+        appointmentDateInput.addEventListener('change', updateAvailableTimes);
+
+        function updateAvailableTimes() {
+            const selectedDate = appointmentDateInput.value;
+            timeSlotsContainer.innerHTML = '';
+
+            const times = availability[selectedDate] || [];
+            times.forEach(time => {
+                const slot = document.createElement('div');
+                slot.classList.add('time-slot');
+                slot.textContent = time;
+
+                if (bookedSlots[selectedDate] && bookedSlots[selectedDate].includes(time)) {
+                    slot.classList.add('unavailable');
+                } else {
+                    slot.addEventListener('click', () => {
+                        document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+                        slot.classList.add('selected');
+                    });
+                }
+                timeSlotsContainer.appendChild(slot);
+            });
+        }
+
+        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const documentNumber = document.getElementById('documentNumber').value;
+            const selectedDate = appointmentDateInput.value;
+            const selectedTime = document.querySelector('.time-slot.selected')?.textContent;
+
+            if (!selectedTime) {
+                alert('Por favor selecciona un horario.');
+                return;
+            }
+
+            if (!bookedSlots[selectedDate]) {
+                bookedSlots[selectedDate] = [];
+            }
+            bookedSlots[selectedDate].push(selectedTime);
+            localStorage.setItem('bookedSlots', JSON.stringify(bookedSlots));
+
+            showNotification(`Cita agendada exitosamente para el ${selectedDate} a las ${selectedTime}`);
+        });
+
+        const floatingForm = document.getElementById('floatingForm');
+        const floatingButton = document.getElementById('floatingButton');
+
+        floatingButton.addEventListener('click', function() {
+            floatingForm.classList.toggle('active');
+        });
+
+        document.getElementById('serviceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const newService = document.getElementById('newService').value;
+            const newCost = document.getElementById('newCost').value;
+            const availableDate = document.getElementById('availableDate').value;
+            const availableTime = document.getElementById('availableTime').value.split(',');
+
+            if (newService) {
+                services[newService] = newCost;
+                loadServices();
+                showNotification(`Servicio "${newService}" agregado con éxito.`);
+            }
+
+            if (availableDate && availableTime.length) {
+                if (!availability[availableDate]) {
+                    availability[availableDate] = [];
+                }
+                availability[availableDate] = availability[availableDate].concat(availableTime.map(t => t.trim()));
+                showNotification(`Disponibilidad para el ${availableDate} agregada con éxito.`);
+            }
+
+            floatingForm.classList.remove('active');
+        });
+
+        function showNotification(message) {
+            notification.textContent = message;
+            notification.style.display = 'block';
+
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        let availability = {
+            "2024-09-20": ["9:00 AM", "10:00 AM", "11:00 AM"],
+            "2024-09-21": ["8:00 AM", "9:30 AM", "10:30 AM", "2:00 PM"],
+            "2024-09-10": ["9:00 AM", "10:00 AM", "11:00 AM"]
+        };
+
+        loadServices();
+    </script>
+</body>
+</html>
+

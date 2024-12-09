@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odontología Sergio Alvarado</title>
+    <link rel="stylesheet" href="css/PaginaServicios.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Odontología Sergio Alvarado</div>
+            <ul class="nav-links">
+                <li><a href="InicioPagina.html">Inicio</a></li>
+                <li><a href="GestionServicio.html">Servicios</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Citas</a>
+                    <div class="dropdown-content">
+                        <a href="GestionAgendamiento.html">Gestionar Agendamiento</a>
+                        <a href="view.html">Ver Citas</a>
+                    </div>
+                </li>
+                <li><a href="#">Nosotros</a></li>
+            </ul>
+            <button class="contact-btn">Contáctanos</button>
+        </nav>
+    </header>
+    <section class="services">
+        <div class="container">
+            <h2>Nuestros Servicios</h2>
+            <div class="services-list">
+                <div class="service-item">
+                    <h3>Blanqueamiento Dental</h3>
+                    <img src="IMG/blaqueamiento_por_un_experto.jpg" alt="Blanqueamiento Dental">
+                    <p>Ilumina tu sonrisa con nuestro blanqueamiento dental profesional y seguro.</p>
+                    <div class="service-actions">
+                        <button class="edit-btn">Editar</button>
+                        <button class="delete-btn">Eliminar</button>
+                    </div>
+                </div>
+                <!-- Agrega botones en el resto de los servicios de la misma forma -->
+                <div class="service-item">
+                    <h3>Implantes Dentales</h3>
+                    <img src="IMG/implantes_dentales.jpg" alt="Blanqueamiento Dental">
+                    <p>Recupera la funcionalidad y estética de tu sonrisa con implantes de última generación.</p>
+                    <div class="service-actions">
+                        <button class="edit-btn">Editar</button>
+                        <button class="delete-btn">Eliminar</button>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <h3>Implantes Dentales</h3>
+                    <img src="IMG/implantes_dentales.jpg" alt="Blanqueamiento Dental">
+                    <p>Recupera la funcionalidad y estética de tu sonrisa con implantes de última generación.</p>
+                    <div class="service-actions">
+                        <button class="edit-btn">Editar</button>
+                        <button class="delete-btn">Eliminar</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+
+    <button class="floating-button" id="floatingButton">+</button>
+
+    <!-- Formulario desplegable -->
+    <div class="floating-form" id="floatingForm">
+        <h2>Agregar Servicio</h2>
+        <form id="serviceForm">
+            <label for="newService">Nuevo Servicio</label>
+            <input type="text" id="newService" required>
+            
+            <label for="description">Descripción del Servicio</label>
+            <textarea id="description" placeholder="Descripción del servicio" required></textarea>
+    
+            <label for="serviceImage">Imagen del Servicio (opcional)</label>
+            <input type="file" id="serviceImage" accept="image/*">
+    
+            <button type="submit" class="boton2">Agregar Servicio</button>
+        </form>
+    </div>
+    
+    <script>
+        // List of services
+        let services = {};
+    
+        // Añadir servicio y descripción a través del formulario flotante
+        const floatingForm = document.getElementById('floatingForm');
+        const floatingButton = document.getElementById('floatingButton');
+    
+        floatingButton.addEventListener('click', function() {
+            floatingForm.classList.toggle('active');
+        });
+    
+        document.getElementById('serviceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const newService = document.getElementById('newService').value;
+            const description = document.getElementById('description').value;
+            const serviceImage = document.getElementById('serviceImage').files[0];
+    
+            // Añadir servicio solo si se especifica
+            if (newService) {
+                services[newService] = {
+                    description: description
+                };
+                console.log("Servicio agregado:", services);
+    
+                // Opción para subir imagen, puedes manejarla como desees
+                if (serviceImage) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const imageURL = event.target.result;
+                        console.log("Imagen subida:", imageURL);
+                        // Aquí puedes almacenar la imagen o mostrarla donde desees
+                    };
+                    reader.readAsDataURL(serviceImage);
+                }
+    
+                // Ocultar formulario después de añadir el servicio
+                floatingForm.classList.remove('active');
+                // Limpiar los campos del formulario
+                document.getElementById('newService').value = '';
+                document.getElementById('description').value = '';
+                document.getElementById('serviceImage').value = '';
+            }
+        });
+    </script>
+    
+</body>
+</html>
+
+

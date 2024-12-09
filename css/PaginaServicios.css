@@ -1,0 +1,362 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    background: linear-gradient(to right, rgba(74, 0, 224, 0.85), rgba(142, 45, 226, 0.85)), url('../IMG/imagendeancian.jpg') no-repeat center center fixed;
+    overflow-x: hidden;
+    background-size: cover;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    transition: background-color 0.3s ease;
+}
+
+
+.promo-bar {
+    background-color:linear-gradient(to right, rgba(74, 0, 224, 0.85), rgba(142, 45, 226, 0.85));
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+
+header {
+    background-color: linear-gradient(to right, rgba(74, 0, 224, 0.85), rgba(142, 45, 226, 0.85));
+    padding: 20px 50px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 600;
+    color: #6a00ff; 
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links li a {
+    color: #fff;
+    font-weight: 300;
+    font-size: 18px;
+    padding: 5px 0;
+    position: relative;
+}
+
+.nav-links li a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(to right, rgba(74, 0, 224, 0.85), rgba(142, 45, 226, 0.85));
+    transition: width 0.3s;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+}
+
+.nav-links li a:hover::after {
+    width: 100%;
+}
+
+.contact-btn {
+    background-color: #0050ff; /* Color azul para el botón de contacto */
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+}
+
+.contact-btn:hover {
+    background-color: #0036e0; 
+}
+.nav-links .dropdown {
+    position: relative;
+}
+
+.nav-links .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #111;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    z-index: 1000;
+}
+
+.nav-links .dropdown-content a {
+    color: #ffffff;
+    padding: 10px 15px;
+    display: block;
+    font-size: 16px;
+    text-align: left;
+    transition: background-color 0.3s ease;
+}
+
+.nav-links .dropdown-content a:hover {
+    background-color: rgba(106, 0, 255, 0.6);
+}
+
+.nav-links .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown .dropbtn::after {
+    font-size: 12px;
+    color: #fff;
+    margin-left: 5px;
+}
+
+.services {
+    background-color: rgba(106, 0, 255, 0.2); /* Fondo suave similar al header */
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.services h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: #ffffff;
+}
+
+.services-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.service-item {
+    background: linear-gradient(to right, rgba(74, 0, 224, 0.85), rgba(142, 45, 226, 0.85)); /* Fondo degradado como el header */
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.service-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+}
+
+.service-item h3 {
+    font-size: 24px;
+    color: #ffeb3b;
+    margin-bottom: 15px;
+}
+
+.service-item p {
+    font-size: 16px;
+    color: #e0e0e0;
+    line-height: 1.5;
+}
+
+label {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+input[type="text"], select, input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #fafafa;
+    box-sizing: border-box;
+}
+
+.boton2{
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+.boton2:hover {
+    background-color: #0056b3;
+}
+.datepicker {
+    padding: 10px;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    background-color: #f8f9fa;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+
+.floating-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #4a00e0;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 9999; /* Asegúrate de que esté en la parte superior */
+}
+
+.floating-button:hover {
+    background-color: #5e72e4;
+}
+
+/* Formulario flotante */
+.floating-form {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    display: none; /* Oculto por defecto */
+    z-index: 9998; /* Para estar justo debajo del botón */
+}
+
+.floating-form.active {
+    display: block; /* Mostrar cuando se activa */
+}
+
+.floating-form h2 {
+    margin-top: 0;
+    font-size: 20px;
+    color: #4a00e0;
+    text-align: center;
+}
+.floating-form input[type="text"], .floating-form select, .floating-form input[type="date"], .floating-form input[type="time"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.service-item {
+    width: 280px; /* Ancho fijo para todas las cajas */
+    height: 400px; /* Altura fija para todas las cajas */
+    background-color: #5f00a2; /* Color de fondo para cada caja */
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+    text-align: center;
+}
+
+.service-item h3 {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ffd700; /* Color del texto del título */
+}
+
+.service-item img {
+    width: 100%;
+    height: 180px; /* Altura fija para las imágenes */
+    object-fit: cover; /* Ajuste para recortar o escalar imágenes */
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.service-item p {
+    flex-grow: 1;
+    font-size: 0.9em;
+    margin: 10px 0;
+}
+
+.service-actions {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.edit-btn,
+.delete-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn {
+    background-color: #ffc107; /* Color amarillo para "Editar" */
+    color: #333;
+}
+
+.edit-btn:hover {
+    background-color: #e0a800;
+}
+
+.delete-btn {
+    background-color: #dc3545; /* Color rojo para "Eliminar" */
+    color: #fff;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+dd
+
+footer {
+    background-color: #000;
+    text-align: center;
+    padding: 20px;
+    color: #6a00ff; /* Texto púrpura */
+    font-size: 14px;
+}
